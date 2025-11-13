@@ -1,0 +1,25 @@
+<hr>
+<h2>Migrate to BigQuery</h2>
+<button id="migrateBtn">Start Migration</button>
+<div id="migrationStatus"></div>
+<pre id="migrationResults"></pre> <script>
+    // Add this to your <script> tag
+    document.getElementById("migrateBtn").addEventListener("click", async function() {
+        const statusDiv = document.getElementById("migrationStatus");
+        const resultsDiv = document.getElementById("migrationResults");
+        statusDiv.innerText = "Starting migration... This may take a moment.";
+        resultsDiv.innerHTML = "";
+
+        const response = await fetch("/GcpAssignment-1.0-SNAPSHOT/migrate");
+        const results = await response.json();
+
+        if (results.error) {
+            statusDiv.innerText = "Migration Failed:";
+            resultsDiv.innerText = results.error;
+        } else {
+            statusDiv.innerText = "Migration Successful! " + results.message;
+            // Display the data from BigQuery
+            resultsDiv.innerText = JSON.stringify(results.data, null, 2);
+        }
+    });
+</script>

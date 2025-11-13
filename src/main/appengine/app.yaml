@@ -1,0 +1,10 @@
+# app.yaml
+runtime: java11
+handlers:
+  - url: /
+    static_files: index.html
+    upload: index.html
+
+  - url: /migration.html
+    static_files: migration.html
+    upload: migration.html
